@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./mla.css"> -->
+</head>
+<body>
+    <style>
+        .container{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background-color: chartreuse;
+    row-gap: 10px;
+    border: 20px;
+    padding: 10px;
+    line-height: 70px;
+    font-size:35px;
+    cursor: pointer;
+
+ }
+    .container > a {
+    width: 130px;
+    line-height: 70px;
+    text-align: center;
+    margin: 20px;
+}
+.Blue{
+    border-color: blue;
+    background-color: blue;
+}
+.Yellow{
+    border-color: yellow;
+    background-color: rgb(241, 245, 9);
+
+}
+.White{
+    background-color: rgba(255, 255, 255, 0);
+    background-color: #ffffff;
+}
+</style>
+
+    <div class="container">
+    <a class="Blue " onclick="usedVote()">Blue 3</a>
+    <a class="Yellow " onclick="usedVote()">Yellow 1</a>
+    <a class="White " onclick="usedVote()">White 2</a>
+    </div>
+
+    <div style="text-align: center;" id="winner">
+            <h2 style="text-align: center;"  id="Result">Next...</h2>
+    </div>
+          <h2 style="text-align: center;" id="stop">Vote untill stop </h2>    
+</body>
+<script >
+    var noFromUser = prompt('No of VOTES');
+    let BClick = document.querySelector(".Blue");
+    let YClick = document.querySelector(".Yellow");
+    let WClick = document.querySelector(".White");
+    let NoMorestop = document.querySelector("#stop")
+
+   let a=document.getElementById('Result');
+    console.log(a.innerText);
+  
+ let arr=[];
+ let click=0;
+  YClick.onclick=function(){
+    if(click >= noFromUser){
+        return -1;}
+     else{
+         click++;
+         a.innerText=`No of completed votes ${click}`;
+         arr.push('1')
+         if (click == noFromUser) {
+        let winner = findMajority(arr);
+        let parent = document.getElementById("winner");
+        let result = document.createElement('h2');
+        result.innerText=`Winner is ${winner}`
+        parent.appendChild(result);
+        a.innerText="Stop";
+        NoMorestop.innerText="..."
+
+
+             
+         }
+         console.log(click);
+         console.log(arr)
+
+     }
+    // alert ("You have voted for TDP ");
+}
+    WClick.usedVote=function(){
+
+        if(click >= noFromUser){
+           return -1;
+        }
+        else{
+            click++;
+           a.innerText=`No of completed votes ${click}`;
+
+            arr.push('2')
+
+            if (click == noFromUser) {
+
+           let winner = findMajority(arr);
+           let parent = document.getElementById("winner");
+           let result = document.createElement('h2');
+           result.innerText=`Winner is ${winner}`
+           parent.appendChild(result);
+           a.innerText="Stop";
+           NoMorestop.innerText="..."
+
+                
+            }
+            console.log(click);
+            console.log(arr)
+
+        }
+        
+
+
+    // alert ("You have voted for JSP");
+}
+BClick.usedVote=function(){
+
+    if(click >= noFromUser){
+        return -1;
+     }
+     else{
+         click++;
+         a.innerText=`No of completed votes ${click}`;
+
+         arr.push('3')
+
+         if (click == noFromUser) {
+
+          let winner = findMajority(arr);
+          let parent = document.getElementById("winner");
+          let result = document.createElement('h2');
+          result.innerText=`Winner is ${winner}`
+          parent.appendChild(result);
+          a.innerText="Stop";
+          NoMorestop.innerText="..."
+
+             
+         }
+         console.log(click);
+         console.log(arr)
+
+     }
+     
+
+    //  alert ("You have voted for YCP");
+}
+
+// Given an array of integers, find the majority element (appearing more than n/2 times).
+// A function to find the majority element using Moore's voting algorithm
+function findMajority(arr) {
+    // Initialize the candidate element and the counter
+    let candidate = arr[0];
+    let count = 1;
+    // Loop over the array elements from index 1
+    for (let i = 1; i < arr.length; i++) {
+      // If the current element is equal to the candidate, increment the counter
+      if (arr[i] === candidate) {
+        count++;
+      } else {
+        // Otherwise, decrement the counter
+        count--;
+        // If the counter becomes zero, update the candidate and reset the counter
+        if (count === 0) {
+          candidate = arr[i];
+          count = 1;
+        }
+      }
+    }
+    // Check if the candidate is indeed the majority element by counting its frequency
+    let frequency = 0;
+    for (let num of arr) {
+      if (num === candidate) {
+        frequency++;
+      }
+    }
+    // If the frequency is greater than n/2, return the candidate as the majority element
+    if (frequency > arr.length / 2) {
+        console.log(candidate);
+      return candidate;
+    }
+    // If no element is found, return -1
+    console.log(candidate);
+    return -1;
+  }
+
+
+
+</script>
+</html>
